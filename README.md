@@ -2,11 +2,11 @@
 
 
 
-This project is a small security monitoring system built with Python.
+This project is a simple security monitoring system that I built with Python.
 
 
 
-I created it to practice detecting suspicious activity and basic vulnerabilities in a simulated network environment.
+I created it to practice detecting suspicious activity and basic security problems in a simulated network environment.
 
 
 
@@ -14,7 +14,7 @@ I created it to practice detecting suspicious activity and basic vulnerabilities
 
 
 
-The monitoring script checks for:
+The monitoring system checks for:
 
 
 
@@ -24,9 +24,9 @@ The monitoring script checks for:
 
 \- Unusually large network traffic
 
-\- Open FTP service
+\- Open FTP services
 
-\- Open Telnet service
+\- Open Telnet services
 
 
 
@@ -34,29 +34,103 @@ The monitoring script checks for:
 
 
 
-The project has two Python scripts.
+The project mainly uses two Python scripts.
 
 
 
-generate\_sample\_data.py creates simulated network activity.
+`generate\_sample\_data.py` creates simulated network activity and service data.
 
 
 
-security\_monitor.py reads the data and checks for suspicious behavior.
+`security\_monitor.py` reads this data and applies simple detection rules.
 
 
 
-The detection rules are:
+The current detection rules are:
 
 
 
-\- More than 5 failed logins within 5 minutes = Brute Force
+| Detection | Rule |
 
-\- 8 or more different ports within 1 minute = Port Scan
+| --- | --- |
 
-\- More than 1,000,000 bytes in one event = Suspicious Traffic
+| Brute Force | More than 5 failed logins within 5 minutes |
 
-\- Open FTP or Telnet = Potential Vulnerability
+| Port Scan | 8 or more different ports within 1 minute |
+
+| Suspicious Traffic | More than 1,000,000 bytes in one event |
+
+| Potential Vulnerability | FTP or Telnet service is open |
+
+
+
+The threshold values are stored in:
+
+
+
+```text
+
+config.json
+
+```
+
+
+
+This makes it possible to change the detection settings without editing the main Python script.
+
+
+
+\## Project Structure
+
+
+
+```text
+
+basic-security-monitoring-system/
+
+│
+
+├── config.json
+
+├── README.md
+
+├── requirements.txt
+
+│
+
+├── data/
+
+│   ├── network\_events.csv
+
+│   └── services.csv
+
+│
+
+├── output/
+
+│   └── alerts.csv
+
+│
+
+├── reports/
+
+│   └── security-report.md
+
+│
+
+├── src/
+
+│   ├── generate\_sample\_data.py
+
+│   └── security\_monitor.py
+
+│
+
+└── tests/
+
+&#x20;   └── test\_security\_monitor.py
+
+```
 
 
 
@@ -64,19 +138,27 @@ The detection rules are:
 
 
 
-Generate the sample data:
+First, generate the sample network data:
 
 
+
+```bash
 
 python src/generate\_sample\_data.py
 
+```
 
 
-Run the monitoring system:
+
+Then run the monitoring system:
 
 
+
+```bash
 
 python src/security\_monitor.py
+
+```
 
 
 
@@ -98,19 +180,67 @@ During my test, the system generated 5 alerts:
 
 
 
-The alerts are stored in:
+The detected alerts are saved in:
 
 
+
+```text
 
 output/alerts.csv
 
+```
 
 
-The detailed report is available in:
+
+The detailed security findings are available in:
 
 
+
+```text
 
 reports/security-report.md
+
+```
+
+
+
+\## Unit Tests
+
+
+
+I also added unit tests for the main detection rules.
+
+
+
+The tests check brute-force detection, the exact brute-force threshold, port scanning, large traffic events and insecure services.
+
+
+
+Run the tests with:
+
+
+
+```bash
+
+python -m unittest discover -s tests -v
+
+```
+
+
+
+Test result:
+
+
+
+```text
+
+Ran 5 tests
+
+
+
+OK
+
+```
 
 
 
@@ -122,63 +252,11 @@ reports/security-report.md
 
 \- CSV
 
+\- JSON
+
 \- Python standard library
 
-
-
-\## What I Learned
-
-
-
-This project helped me understand how basic monitoring rules can detect suspicious activity in network data.
-
-
-
-I practiced checking failed logins, port activity, traffic size and insecure services.
-
-
-
-I also learned that simple thresholds can work in a lab, but a real monitoring system would need more advanced rules to reduce false positives.
-
-
-
-\## Tests
-
-
-
-I added unit tests for the main detection rules.
-
-
-
-The tests check:
-
-
-
-\- Brute-force detection
-
-\- The exact brute-force threshold
-
-\- Port scan detection
-
-\- Large traffic detection
-
-\- Insecure service detection
-
-
-
-Run the tests with:
-
-
-
-python -m unittest discover -s tests -v
-
-
-
-Test result:
-
-
-
-5 tests passed successfully.
+\- unittest
 
 
 
@@ -186,29 +264,25 @@ Test result:
 
 
 
-This project uses simulated CSV data and simple threshold-based rules.
+This project uses simulated CSV data and simple threshold-based detection rules.
 
 
 
-Because of that, it is designed as a learning project rather than a production monitoring system.
+It is a learning project, not a production security monitoring system. Normal activity could sometimes cross one of the thresholds and create a false positive.
 
 
 
-Possible limitations include:
+The current version also does not include real-time packet capture, threat intelligence, automatic blocking or long-term event correlation.
 
 
 
-\- False positives when normal activity crosses a threshold
-
-\- No real-time packet capture
-
-\- No external threat intelligence
-
-\- No automatic blocking or response action
-
-\- No long-term event correlation
+\## What I Learned
 
 
 
-In a real environment, these rules would need more context and tuning.
+This project helped me understand how basic monitoring rules can be used to detect suspicious activity.
+
+
+
+I practiced working with failed login attempts, port activity, traffic size and insecure services. I also learned how configuration files and unit tests can make a small security project easier to manage and test.
 
