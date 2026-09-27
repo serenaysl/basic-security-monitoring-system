@@ -1,4 +1,4 @@
-\# Basic Security Monitoring System
+# Basic Security Monitoring System
 
 
 
@@ -10,7 +10,7 @@ I created it to practice detecting suspicious activity and basic security proble
 
 
 
-\## What the System Detects
+## What the System Detects
 
 
 
@@ -30,7 +30,7 @@ The monitoring system checks for:
 
 
 
-\## How It Works
+## How It Works
 
 
 
@@ -134,7 +134,7 @@ basic-security-monitoring-system/
 
 
 
-\## How to Run
+## How to Run
 
 
 
@@ -162,7 +162,7 @@ python src/security\_monitor.py
 
 
 
-\## Test Result
+## Test Result
 
 
 
@@ -244,7 +244,7 @@ OK
 
 
 
-\## Technologies
+## Technologies
 
 
 
@@ -260,7 +260,7 @@ OK
 
 
 
-\## Limitations
+## Limitations
 
 
 
@@ -276,7 +276,7 @@ The current version also does not include real-time packet capture, threat intel
 
 
 
-\## What I Learned
+## What I Learned
 
 
 
