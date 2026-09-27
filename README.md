@@ -140,3 +140,75 @@ I practiced checking failed logins, port activity, traffic size and insecure ser
 
 I also learned that simple thresholds can work in a lab, but a real monitoring system would need more advanced rules to reduce false positives.
 
+
+
+\## Tests
+
+
+
+I added unit tests for the main detection rules.
+
+
+
+The tests check:
+
+
+
+\- Brute-force detection
+
+\- The exact brute-force threshold
+
+\- Port scan detection
+
+\- Large traffic detection
+
+\- Insecure service detection
+
+
+
+Run the tests with:
+
+
+
+python -m unittest discover -s tests -v
+
+
+
+Test result:
+
+
+
+5 tests passed successfully.
+
+
+
+\## Limitations
+
+
+
+This project uses simulated CSV data and simple threshold-based rules.
+
+
+
+Because of that, it is designed as a learning project rather than a production monitoring system.
+
+
+
+Possible limitations include:
+
+
+
+\- False positives when normal activity crosses a threshold
+
+\- No real-time packet capture
+
+\- No external threat intelligence
+
+\- No automatic blocking or response action
+
+\- No long-term event correlation
+
+
+
+In a real environment, these rules would need more context and tuning.
+

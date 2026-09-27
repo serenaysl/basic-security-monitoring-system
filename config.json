@@ -1,0 +1,11 @@
+﻿{
+  "brute_force_threshold": 5,
+  "brute_force_window_minutes": 5,
+  "port_scan_threshold": 8,
+  "port_scan_window_minutes": 1,
+  "large_traffic_threshold": 1000000,
+  "insecure_services": [
+    "FTP",
+    "Telnet"
+  ]
+}

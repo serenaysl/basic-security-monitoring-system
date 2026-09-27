@@ -1,4 +1,5 @@
 ﻿import csv
+import json
 from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -9,16 +10,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 NETWORK_FILE = BASE_DIR / "data" / "network_events.csv"
 SERVICES_FILE = BASE_DIR / "data" / "services.csv"
 OUTPUT_FILE = BASE_DIR / "output" / "alerts.csv"
+CONFIG_FILE = BASE_DIR / "config.json"
 
-BRUTE_FORCE_THRESHOLD = 5
-BRUTE_FORCE_WINDOW_MINUTES = 5
 
-PORT_SCAN_THRESHOLD = 8
-PORT_SCAN_WINDOW_MINUTES = 1
+def load_config():
+    with CONFIG_FILE.open("r", encoding="utf-8-sig") as file:
+        return json.load(file)
 
-LARGE_TRAFFIC_THRESHOLD = 1_000_000
 
-INSECURE_SERVICES = {"FTP", "Telnet"}
+CONFIG = load_config()
+
+BRUTE_FORCE_THRESHOLD = CONFIG["brute_force_threshold"]
+BRUTE_FORCE_WINDOW_MINUTES = CONFIG["brute_force_window_minutes"]
+
+PORT_SCAN_THRESHOLD = CONFIG["port_scan_threshold"]
+PORT_SCAN_WINDOW_MINUTES = CONFIG["port_scan_window_minutes"]
+
+LARGE_TRAFFIC_THRESHOLD = CONFIG["large_traffic_threshold"]
+
+INSECURE_SERVICES = set(CONFIG["insecure_services"])
 
 
 def load_csv(file_path):
@@ -132,10 +142,7 @@ def detect_large_traffic(events):
                     "Suspicious Traffic",
                     "Medium",
                     event["source_ip"],
-                    (
-                        f"Large network event detected: "
-                        f"{traffic_bytes} bytes"
-                    ),
+                    f"Large network event detected: {traffic_bytes} bytes",
                 )
             )
 
