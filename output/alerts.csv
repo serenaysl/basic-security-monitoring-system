@@ -1,0 +1,6 @@
+alert_type,severity,source,description
+Brute Force,High,203.0.113.50,8 failed login attempts within 5 minutes
+Port Scan,Medium,198.51.100.23,Connection attempts to 10 different ports within 1 minute
+Suspicious Traffic,Medium,192.168.1.25,Large network event detected: 5000000 bytes
+Potential Vulnerability,Medium,192.168.1.100,FTP service is open on port 21
+Potential Vulnerability,Medium,192.168.1.100,Telnet service is open on port 23

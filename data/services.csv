@@ -1,0 +1,6 @@
+host,port,service,status
+192.168.1.100,22,SSH,open
+192.168.1.100,80,HTTP,open
+192.168.1.100,21,FTP,open
+192.168.1.100,23,Telnet,open
+192.168.1.100,443,HTTPS,open
